@@ -66,9 +66,9 @@ public class HC128Main extends JFrame {
 		setResizable(false);
 		setTitle("Algoritmo HC-128");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 526, 538);
+		setBounds(100, 100, 1200, 1400);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(240, 255, 240));
+		contentPane.setBackground(new Color(172, 251, 231));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -224,12 +224,12 @@ public class HC128Main extends JFrame {
 					}
 					else 
 					{
-						JOptionPane.showMessageDialog(null, "El tamaño del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "El tamaï¿½o del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else 
 				{
-					JOptionPane.showMessageDialog(null, "El tamaño de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "El tamaï¿½o de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
 				}		
 			}
 		});
