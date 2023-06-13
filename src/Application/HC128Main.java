@@ -213,31 +213,6 @@ public class HC128Main extends JFrame {
 		btn_Encrypt.setBounds(130+120, 191+120, 180, 23);
 		contentPane.add(btn_Encrypt);
 		
-		Button btn_Encrypt_Intercept = new Button("Cifrar interceptando 1bit");
-		btn_Encrypt_Intercept.setFont(new Font("Dialog", Font.BOLD, 12));
-		btn_Encrypt_Intercept.setForeground( new Color(255, 255, 255) );
-		btn_Encrypt_Intercept.setBackground(new Color(0, 128, 128));
-		btn_Encrypt_Intercept.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				encrypt(lbl_OriginalImage, lbl_EncryptedImage, true);
-			}
-		});
-		btn_Encrypt_Intercept.setBounds(130+120, 191+120+50, 180, 23);
-		contentPane.add(btn_Encrypt_Intercept);
-		
-		Button btn_Decrypt_Intercept = new Button("Descifrar interceptando 1bit");
-		btn_Decrypt_Intercept.setFont(new Font("Dialog", Font.BOLD, 12));
-		btn_Decrypt_Intercept.setForeground( new Color(255, 255, 255) );
-		btn_Decrypt_Intercept.setBackground(new Color(0, 128, 128));
-		btn_Decrypt_Intercept.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				decrypt(lbl_EncryptedImage, lbl_DecryptedImage, true);
-			}
-		});
-		btn_Decrypt_Intercept.setBounds(130+540, 191+120+50, 180, 23);
-		contentPane.add(btn_Decrypt_Intercept);
-		
-		
 		separator.setBounds(0, 239-50, 1200, 31);
 		contentPane.add(separator);
 		
@@ -264,10 +239,6 @@ public class HC128Main extends JFrame {
 	}
 	
 	public void encrypt(JLabel lbl_OriginalImage, JLabel lbl_EncryptedImage) {
-		encrypt(lbl_OriginalImage, lbl_EncryptedImage, false);
-	}
-	
-	public void encrypt(JLabel lbl_OriginalImage, JLabel lbl_EncryptedImage, boolean interceptText) {
 		if(txt_Key.getText().length() == 16) 
 		{
 			if(txt_iv.getText().length() == 16) 
@@ -277,16 +248,6 @@ public class HC128Main extends JFrame {
 					try 
 					{
 						String key = txt_Key.getText();
-						if(interceptText) {
-							char[] chars = key.toCharArray();
-							int len = chars.length;
-							Random rand = new Random();
-							int indexRand = rand.nextInt(0, len);
-							chars[indexRand] = (char) (chars[indexRand] ^ 1 ); //cambio un bit en la pos 1
-							key = new String(chars);
-							System.out.println("llave cambiada a: " + key);
-						}
-						
 						CipherManager cm = new CipherManager();
 						cm.initializeData(key, txt_iv.getText());
 						File encryptedFile = cm.encrypt(imageSelectedFile);
@@ -317,10 +278,6 @@ public class HC128Main extends JFrame {
 	}
 	
 	public void decrypt(JLabel lbl_EncryptedImage, JLabel lbl_DecryptedImage) {
-		decrypt(lbl_EncryptedImage, lbl_DecryptedImage, false);
-	}
-	
-	public void decrypt(JLabel lbl_EncryptedImage, JLabel lbl_DecryptedImage, boolean interceptText) {
 		if(txt_Key.getText().length() == 16) 
 		{
 			if(txt_iv.getText().length() == 16) 
@@ -330,16 +287,6 @@ public class HC128Main extends JFrame {
 					try 
 					{
 						String key = txt_Key.getText();
-						if(interceptText) {
-							char[] chars = key.toCharArray();
-							int len = chars.length;
-							Random rand = new Random();
-							int indexRand = rand.nextInt(0, len);
-							chars[indexRand] = (char) (chars[indexRand] ^ 1 ); //cambio un bit en la pos 1
-							key = new String(chars);
-							System.out.println("llave cambiada a: " + key);
-						}
-						
 						imageEncryptedFile = new File("Imagenes\\temp.bmp");
 						CipherManager cm = new CipherManager();
 						cm.initializeData(key, txt_iv.getText());
