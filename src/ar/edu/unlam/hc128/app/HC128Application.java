@@ -4,12 +4,12 @@ import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ar.edu.unlam.hc128.cipher.CipherManager;
 import ar.edu.unlam.hc128.utils.RandomDataGenerator;
-
+import ar.edu.unlam.hc128.visual.NuevoJPanel;
+import ar.edu.unlam.hc128.visual.StyledButtonUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -20,18 +20,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
-import java.awt.Button;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JSeparator;
 
 public class HC128Application extends JFrame {
     private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
+    private NuevoJPanel contentPane;
     private JTextField textBoxKey;
     private JTextField textBoxIV;
     private JTextField textImage;
@@ -55,8 +53,8 @@ public class HC128Application extends JFrame {
         setTitle("Algoritmo HC-128");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1200, 600);
-        contentPane = new JPanel();
-        contentPane.setBackground(new Color(172, 251, 231));
+        contentPane = new NuevoJPanel();
+    //    contentPane.setBackground(new Color(172, 251, 231)); 
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -66,10 +64,11 @@ public class HC128Application extends JFrame {
         contentPane.add(textBoxKey);
         textBoxKey.setColumns(10);
 
-        Button buttonGenerateKey = new Button("Generar");
+        JButton buttonGenerateKey = new JButton("Generar");
         buttonGenerateKey.setBackground(new Color(0, 128, 128));
         buttonGenerateKey.setForeground(new Color(255, 255, 255));
         buttonGenerateKey.setFont(new Font("Dialog", Font.BOLD, 12));
+        buttonGenerateKey.setUI(new StyledButtonUI());
         buttonGenerateKey.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 textBoxKey.setText(RandomDataGenerator.generate());
@@ -81,11 +80,13 @@ public class HC128Application extends JFrame {
         JLabel labelKey = new JLabel("Key:");
         labelKey.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelKey.setBounds(26, 77, 75, 14);
+        labelKey.setForeground(Color.WHITE);
         contentPane.add(labelKey);
 
         JLabel labelIV = new JLabel("IV:");
         labelIV.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelIV.setBounds(26+600, 77, 60, 14);
+        labelIV.setForeground(Color.WHITE);
         contentPane.add(labelIV);
 
         textBoxIV = new JTextField();
@@ -93,10 +94,11 @@ public class HC128Application extends JFrame {
         contentPane.add(textBoxIV);
         textBoxIV.setColumns(10);
 
-        Button buttonGenerateIV = new Button("Generar");
+        JButton buttonGenerateIV = new JButton("Generar");
         buttonGenerateIV.setBackground(new Color(0, 128, 128));
         buttonGenerateIV.setFont(new Font("Dialog", Font.BOLD, 12));
         buttonGenerateIV.setForeground(new Color(255, 255, 255));
+        buttonGenerateIV.setUI(new StyledButtonUI());
         buttonGenerateIV.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 textBoxIV.setText(RandomDataGenerator.generate());
@@ -108,6 +110,7 @@ public class HC128Application extends JFrame {
         JLabel labelImage = new JLabel("Imagen:");
         labelImage.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelImage.setBounds(26+330, 156-10, 60, 14);
+        labelImage.setForeground(Color.WHITE);
         contentPane.add(labelImage);
 
         textImage = new JTextField();
@@ -134,6 +137,7 @@ public class HC128Application extends JFrame {
         JLabel labelOriginal = new JLabel("Imagen original");
         labelOriginal.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelOriginal.setBounds(85, 270-10, 112, 14);
+        labelOriginal.setForeground(Color.WHITE);
         contentPane.add(labelOriginal);
 
         JLabel labelEncryptedImage = new JLabel("");
@@ -143,6 +147,7 @@ public class HC128Application extends JFrame {
         JLabel labelEncrypted = new JLabel("Imagen cifrada");
         labelEncrypted.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelEncrypted.setBounds(319+180, 270-10, 118, 14);
+        labelEncrypted.setForeground(Color.WHITE);
         contentPane.add(labelEncrypted);
 
         JLabel labelDecryptedImage = new JLabel("");
@@ -152,12 +157,14 @@ public class HC128Application extends JFrame {
         JLabel labelDecrypted = new JLabel("Imagen descifrada");
         labelDecrypted.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelDecrypted.setBounds(319+585, 270-10, 118, 14);
+        labelDecrypted.setForeground(Color.WHITE);
         contentPane.add(labelDecrypted);
 
-        Button buttonSelectImage = new Button("Seleccionar");
+        JButton buttonSelectImage = new JButton("Seleccionar");
         buttonSelectImage.setBackground(new Color(0, 128, 128));
         buttonSelectImage.setForeground(new Color(255, 255, 255));
         buttonSelectImage.setFont(new Font("Dialog", Font.BOLD, 12));
+        buttonSelectImage.setUI(new StyledButtonUI());
         buttonSelectImage.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jf = new JFileChooser();
@@ -191,10 +198,11 @@ public class HC128Application extends JFrame {
         buttonSelectImage.setBounds(377+330, 150-10, 118, 23);
         contentPane.add(buttonSelectImage);
 
-        Button buttonEncrypt = new Button("Cifrar");
+        JButton buttonEncrypt = new JButton("Cifrar");
         buttonEncrypt.setFont(new Font("Dialog", Font.BOLD, 12));
         buttonEncrypt.setForeground( new Color(255, 255, 255) );
         buttonEncrypt.setBackground(new Color(0, 128, 128));
+        buttonEncrypt.setUI(new StyledButtonUI());
         buttonEncrypt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 encrypt(labelOriginalImage, labelEncryptedImage);
@@ -206,10 +214,11 @@ public class HC128Application extends JFrame {
         separator.setBounds(0, 239-50, 1200, 31);
         contentPane.add(separator);
 
-        Button buttonDecrypt = new Button("Descifrar");
+        JButton buttonDecrypt = new JButton("Descifrar");
         buttonDecrypt.setFont(new Font("Dialog", Font.BOLD, 12));
         buttonDecrypt.setForeground( new Color(255, 255, 255) );
         buttonDecrypt.setBackground(new Color(0, 128, 128));
+        buttonDecrypt.setUI(new StyledButtonUI());
         buttonDecrypt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 decrypt(labelEncryptedImage, labelDecryptedImage);
@@ -221,10 +230,12 @@ public class HC128Application extends JFrame {
         JLabel lblCriptografa = new JLabel(" Criptograf\u00EDa");
         lblCriptografa.setFont(new Font("Tahoma", Font.BOLD, 11));
         lblCriptografa.setBounds(79, 11, 106, 20);
+        lblCriptografa.setForeground(Color.WHITE);
         contentPane.add(lblCriptografa);
 
         JLabel lblAlgoritmoHc = new JLabel(" Algoritmo HC-128");
         lblAlgoritmoHc.setBounds(79, 30, 134, 14);
+        lblAlgoritmoHc.setForeground(Color.WHITE);
         contentPane.add(lblAlgoritmoHc);
     }
 
