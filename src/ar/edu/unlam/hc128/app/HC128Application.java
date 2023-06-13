@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -118,10 +119,18 @@ public class HC128Application extends JFrame {
         labelOriginalImage.setBounds(56, 306-10, 174, 172);
         contentPane.add(labelOriginalImage);
 
-        JLabel lbl_UnlamImage = new JLabel("");
-        lbl_UnlamImage.setBounds(26, 11, 43, 42);
-        contentPane.add(lbl_UnlamImage);
-
+        BufferedImage myPicture;
+        JLabel labelUnlamImage;
+        try {
+            myPicture = ImageIO.read(new File("unlam.png"));
+            labelUnlamImage = new JLabel(new ImageIcon(myPicture.getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
+        } catch (IOException e1) {
+            labelUnlamImage = new JLabel("");
+        }
+		
+        labelUnlamImage.setBounds(26, 11, 43, 42);
+        contentPane.add(labelUnlamImage);
+        
         JLabel labelOriginal = new JLabel("Imagen original");
         labelOriginal.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelOriginal.setBounds(85, 270-10, 112, 14);
