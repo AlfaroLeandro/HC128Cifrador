@@ -241,19 +241,19 @@ public class HC128Application extends JFrame {
         lblAlgoritmoHc.setForeground(Color.WHITE);
         contentPane.add(lblAlgoritmoHc);
         
-        JLabel lblNewLabel = new JLabel("Inicializaci\u00F3n");
-        lblNewLabel.setForeground(new Color(255, 255, 255));
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblNewLabel.setBounds(499, 23, 118, 20);
-        contentPane.add(lblNewLabel);
+        JLabel lblTitleFirstSection = new JLabel("Inicializaci\u00F3n");
+        lblTitleFirstSection.setForeground(new Color(255, 255, 255));
+        lblTitleFirstSection.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTitleFirstSection.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblTitleFirstSection.setBounds(499, 23, 118, 20);
+        contentPane.add(lblTitleFirstSection);
         
-        JLabel lblImagen = new JLabel("Cifrado");
-        lblImagen.setForeground(new Color(255, 255, 255));
-        lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-        lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblImagen.setBounds(499, 208, 118, 20);
-        contentPane.add(lblImagen);
+        JLabel lblTitleSecondSection = new JLabel("Cifrado");
+        lblTitleSecondSection.setForeground(new Color(255, 255, 255));
+        lblTitleSecondSection.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTitleSecondSection.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblTitleSecondSection.setBounds(499, 208, 118, 20);
+        contentPane.add(lblTitleSecondSection);
     }
 
     public void encrypt(JLabel labelOriginalImage, JLabel labelEncryptedImage) {
