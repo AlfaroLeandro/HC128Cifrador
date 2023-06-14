@@ -26,6 +26,7 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class HC128Application extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -85,12 +86,12 @@ public class HC128Application extends JFrame {
 
         JLabel labelIV = new JLabel("IV:");
         labelIV.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelIV.setBounds(26+600, 77, 60, 14);
+        labelIV.setBounds(26, 111, 60, 14);
         labelIV.setForeground(Color.WHITE);
         contentPane.add(labelIV);
 
         textBoxIV = new JTextField();
-        textBoxIV.setBounds(96+600, 77, 262, 20);
+        textBoxIV.setBounds(96, 108, 262, 20);
         contentPane.add(textBoxIV);
         textBoxIV.setColumns(10);
 
@@ -104,22 +105,22 @@ public class HC128Application extends JFrame {
                 textBoxIV.setText(RandomDataGenerator.generate());
             }
         });
-        buttonGenerateIV.setBounds(377+600, 77, 118, 23);
+        buttonGenerateIV.setBounds(377, 106, 118, 23);
         contentPane.add(buttonGenerateIV);
 
         JLabel labelImage = new JLabel("Imagen:");
         labelImage.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelImage.setBounds(26+330, 156-10, 60, 14);
+        labelImage.setBounds(26, 142, 60, 14);
         labelImage.setForeground(Color.WHITE);
         contentPane.add(labelImage);
 
         textImage = new JTextField();
-        textImage.setBounds(96+330, 153-10, 262, 20);
+        textImage.setBounds(96, 139, 262, 20);
         contentPane.add(textImage);
         textImage.setColumns(10);
 
         JLabel labelOriginalImage = new JLabel("");
-        labelOriginalImage.setBounds(56, 306-10, 174, 172);
+        labelOriginalImage.setBounds(56, 319, 174, 172);
         contentPane.add(labelOriginalImage);
 
         BufferedImage myPicture;
@@ -131,32 +132,35 @@ public class HC128Application extends JFrame {
             labelUnlamImage = new JLabel("");
         }
 		
-        labelUnlamImage.setBounds(26, 11, 43, 42);
+        labelUnlamImage.setBounds(1120, 11, 43, 42);
         contentPane.add(labelUnlamImage);
         
         JLabel labelOriginal = new JLabel("Imagen original");
         labelOriginal.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelOriginal.setBounds(85, 270-10, 112, 14);
+        labelOriginal.setBounds(96, 283, 112, 14);
         labelOriginal.setForeground(Color.WHITE);
         contentPane.add(labelOriginal);
 
+        separator.setBounds(10, 179, 1200, 14);
+        contentPane.add(separator);
+
         JLabel labelEncryptedImage = new JLabel("");
-        labelEncryptedImage.setBounds(282+180, 295-10, 174, 172);
+        labelEncryptedImage.setBounds(462, 308, 174, 172);
         contentPane.add(labelEncryptedImage);
 
         JLabel labelEncrypted = new JLabel("Imagen cifrada");
         labelEncrypted.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelEncrypted.setBounds(319+180, 270-10, 118, 14);
+        labelEncrypted.setBounds(499, 283, 118, 14);
         labelEncrypted.setForeground(Color.WHITE);
         contentPane.add(labelEncrypted);
 
         JLabel labelDecryptedImage = new JLabel("");
-        labelDecryptedImage.setBounds(282+585, 295-10, 174, 172);
+        labelDecryptedImage.setBounds(867, 308, 174, 172);
         contentPane.add(labelDecryptedImage);
 
         JLabel labelDecrypted = new JLabel("Imagen descifrada");
         labelDecrypted.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelDecrypted.setBounds(319+585, 270-10, 118, 14);
+        labelDecrypted.setBounds(904, 283, 118, 14);
         labelDecrypted.setForeground(Color.WHITE);
         contentPane.add(labelDecrypted);
 
@@ -195,7 +199,7 @@ public class HC128Application extends JFrame {
 
             }
         });
-        buttonSelectImage.setBounds(377+330, 150-10, 118, 23);
+        buttonSelectImage.setBounds(377, 137, 118, 23);
         contentPane.add(buttonSelectImage);
 
         JButton buttonEncrypt = new JButton("Cifrar");
@@ -208,11 +212,10 @@ public class HC128Application extends JFrame {
                 encrypt(labelOriginalImage, labelEncryptedImage);
             }
         });
-        buttonEncrypt.setBounds(130+120, 191+120, 180, 23);
+        buttonEncrypt.setBounds(250, 334, 180, 23);
         contentPane.add(buttonEncrypt);
 
-        separator.setBounds(0, 239-50, 1200, 31);
-        contentPane.add(separator);
+
 
         JButton buttonDecrypt = new JButton("Descifrar");
         buttonDecrypt.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -224,19 +227,33 @@ public class HC128Application extends JFrame {
                 decrypt(labelEncryptedImage, labelDecryptedImage);
             }
         });
-        buttonDecrypt.setBounds(130+540, 191+120, 180, 23);
+        buttonDecrypt.setBounds(670, 334, 180, 23);
         contentPane.add(buttonDecrypt);
 
         JLabel lblCriptografa = new JLabel(" Criptograf\u00EDa");
         lblCriptografa.setFont(new Font("Tahoma", Font.BOLD, 11));
-        lblCriptografa.setBounds(79, 11, 106, 20);
+        lblCriptografa.setBounds(20, 10, 106, 20);
         lblCriptografa.setForeground(Color.WHITE);
         contentPane.add(lblCriptografa);
 
         JLabel lblAlgoritmoHc = new JLabel(" Algoritmo HC-128");
-        lblAlgoritmoHc.setBounds(79, 30, 134, 14);
+        lblAlgoritmoHc.setBounds(20, 29, 134, 14);
         lblAlgoritmoHc.setForeground(Color.WHITE);
         contentPane.add(lblAlgoritmoHc);
+        
+        JLabel lblNewLabel = new JLabel("Inicializaci\u00F3n");
+        lblNewLabel.setForeground(new Color(255, 255, 255));
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel.setBounds(499, 23, 118, 20);
+        contentPane.add(lblNewLabel);
+        
+        JLabel lblImagen = new JLabel("Cifrado");
+        lblImagen.setForeground(new Color(255, 255, 255));
+        lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+        lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblImagen.setBounds(499, 208, 118, 20);
+        contentPane.add(lblImagen);
     }
 
     public void encrypt(JLabel labelOriginalImage, JLabel labelEncryptedImage) {
