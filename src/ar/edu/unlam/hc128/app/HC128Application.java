@@ -3,7 +3,6 @@ package ar.edu.unlam.hc128.app;
 import java.awt.EventQueue;
 import java.awt.Image;
 
-import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
 
 import ar.edu.unlam.hc128.cipher.CipherManager;
@@ -12,8 +11,6 @@ import ar.edu.unlam.hc128.visual.NuevoJPanel;
 import ar.edu.unlam.hc128.visual.StyledButtonUI;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -25,8 +22,6 @@ import javax.swing.*;
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
 public class HC128Application extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -254,6 +249,13 @@ public class HC128Application extends JFrame {
         lblTitleSecondSection.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblTitleSecondSection.setBounds(499, 208, 118, 20);
         contentPane.add(lblTitleSecondSection);
+        
+        try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
     }
 
     public void encrypt(JLabel labelOriginalImage, JLabel labelEncryptedImage) {
