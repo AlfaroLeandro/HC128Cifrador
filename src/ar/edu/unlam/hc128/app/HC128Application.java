@@ -48,7 +48,7 @@ public class HC128Application extends JFrame {
         setResizable(false);
         setTitle("Algoritmo HC-128");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1200, 600);
+        setBounds(100, 100, 1200, 777);
         contentPane = new NuevoJPanel();
     //    contentPane.setBackground(new Color(172, 251, 231)); 
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -115,7 +115,7 @@ public class HC128Application extends JFrame {
         textImage.setColumns(10);
 
         JLabel labelOriginalImage = new JLabel("");
-        labelOriginalImage.setBounds(56, 319, 174, 172);
+        labelOriginalImage.setBounds(175, 291, 174, 172);
         contentPane.add(labelOriginalImage);
 
         BufferedImage myPicture;
@@ -132,7 +132,7 @@ public class HC128Application extends JFrame {
         
         JLabel labelOriginal = new JLabel("Imagen original");
         labelOriginal.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelOriginal.setBounds(96, 283, 112, 14);
+        labelOriginal.setBounds(217, 249, 112, 14);
         labelOriginal.setForeground(Color.WHITE);
         contentPane.add(labelOriginal);
 
@@ -140,24 +140,14 @@ public class HC128Application extends JFrame {
         contentPane.add(separator);
 
         JLabel labelEncryptedImage = new JLabel("");
-        labelEncryptedImage.setBounds(462, 308, 174, 172);
+        labelEncryptedImage.setBounds(788, 291, 174, 172);
         contentPane.add(labelEncryptedImage);
 
         JLabel labelEncrypted = new JLabel("Imagen cifrada");
         labelEncrypted.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelEncrypted.setBounds(499, 283, 118, 14);
+        labelEncrypted.setBounds(825, 249, 118, 14);
         labelEncrypted.setForeground(Color.WHITE);
         contentPane.add(labelEncrypted);
-
-        JLabel labelDecryptedImage = new JLabel("");
-        labelDecryptedImage.setBounds(867, 308, 174, 172);
-        contentPane.add(labelDecryptedImage);
-
-        JLabel labelDecrypted = new JLabel("Imagen descifrada");
-        labelDecrypted.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelDecrypted.setBounds(904, 283, 118, 14);
-        labelDecrypted.setForeground(Color.WHITE);
-        contentPane.add(labelDecrypted);
 
         JButton buttonSelectImage = new JButton("Seleccionar");
         buttonSelectImage.setBackground(new Color(0, 128, 128));
@@ -197,34 +187,6 @@ public class HC128Application extends JFrame {
         buttonSelectImage.setBounds(377, 137, 118, 23);
         contentPane.add(buttonSelectImage);
 
-        JButton buttonEncrypt = new JButton("Cifrar");
-        buttonEncrypt.setFont(new Font("Dialog", Font.BOLD, 12));
-        buttonEncrypt.setForeground( new Color(255, 255, 255) );
-        buttonEncrypt.setBackground(new Color(0, 128, 128));
-        buttonEncrypt.setUI(new StyledButtonUI());
-        buttonEncrypt.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                encrypt(labelOriginalImage, labelEncryptedImage);
-            }
-        });
-        buttonEncrypt.setBounds(250, 334, 180, 23);
-        contentPane.add(buttonEncrypt);
-
-
-
-        JButton buttonDecrypt = new JButton("Descifrar");
-        buttonDecrypt.setFont(new Font("Dialog", Font.BOLD, 12));
-        buttonDecrypt.setForeground( new Color(255, 255, 255) );
-        buttonDecrypt.setBackground(new Color(0, 128, 128));
-        buttonDecrypt.setUI(new StyledButtonUI());
-        buttonDecrypt.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                decrypt(labelEncryptedImage, labelDecryptedImage);
-            }
-        });
-        buttonDecrypt.setBounds(670, 334, 180, 23);
-        contentPane.add(buttonDecrypt);
-
         JLabel lblCriptografa = new JLabel(" Criptograf\u00EDa");
         lblCriptografa.setFont(new Font("Tahoma", Font.BOLD, 11));
         lblCriptografa.setBounds(20, 10, 106, 20);
@@ -250,6 +212,56 @@ public class HC128Application extends JFrame {
         lblTitleSecondSection.setBounds(499, 208, 118, 20);
         contentPane.add(lblTitleSecondSection);
         
+        JLabel lblImagenCifrada = new JLabel("Imagen cifrada");
+        lblImagenCifrada.setForeground(Color.WHITE);
+        lblImagenCifrada.setFont(new Font("Tahoma", Font.BOLD, 11));
+        lblImagenCifrada.setBounds(217, 485, 112, 14);
+        contentPane.add(lblImagenCifrada);
+        
+        JLabel lblImagenDescifrada = new JLabel("Imagen descifrada");
+        lblImagenDescifrada.setForeground(Color.WHITE);
+        lblImagenDescifrada.setFont(new Font("Tahoma", Font.BOLD, 11));
+        lblImagenDescifrada.setBounds(825, 491, 118, 14);
+        contentPane.add(lblImagenDescifrada);
+        
+        JLabel labelEncryptedImage2 = new JLabel("");
+        labelEncryptedImage2.setForeground(Color.BLACK);
+        labelEncryptedImage2.setBackground(Color.GRAY);
+        labelEncryptedImage2.setBounds(175, 527, 174, 172);
+        contentPane.add(labelEncryptedImage2);   
+        
+        JLabel labelDecryptedImage = new JLabel("");
+        labelDecryptedImage.setBounds(788, 533, 174, 172);
+        contentPane.add(labelDecryptedImage);
+        
+        JButton btnDecrypt = new JButton("Descifrar");
+        btnDecrypt.setFont(new Font("Dialog", Font.BOLD, 12));
+        btnDecrypt.setForeground(new Color(255, 255, 255));
+        btnDecrypt.setBackground(new Color(0, 128, 128));
+        btnDecrypt.setUI(new StyledButtonUI());
+        btnDecrypt.setBounds(469, 587, 180, 23);
+        btnDecrypt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                decrypt(labelEncryptedImage2, labelDecryptedImage);
+            }
+        });
+        contentPane.add(btnDecrypt);
+        
+
+        JButton buttonEncrypt = new JButton("Cifrar");
+        buttonEncrypt.setFont(new Font("Dialog", Font.BOLD, 12));
+        buttonEncrypt.setForeground( new Color(255, 255, 255) );
+        buttonEncrypt.setBackground(new Color(0, 128, 128));
+        buttonEncrypt.setUI(new StyledButtonUI());
+        buttonEncrypt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                encrypt(labelOriginalImage, labelEncryptedImage, labelEncryptedImage2);
+            }
+        });
+        buttonEncrypt.setBounds(469, 348, 180, 23);
+        contentPane.add(buttonEncrypt);
+
+        
         try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
@@ -258,7 +270,7 @@ public class HC128Application extends JFrame {
 		}
     }
 
-    public void encrypt(JLabel labelOriginalImage, JLabel labelEncryptedImage) {
+    public void encrypt(JLabel labelOriginalImage, JLabel labelEncryptedImage, JLabel labelEncryptedImage2) {
         if(textBoxKey.getText().length() == 16)
         {
             if(textBoxIV.getText().length() == 16)
@@ -268,13 +280,12 @@ public class HC128Application extends JFrame {
                     try
                     {
                         String key = textBoxKey.getText();
-                        CipherManager cm = new CipherManager();
-                        cm.initializeData(key, textBoxIV.getText());
-                        File encryptedFile = cm.encrypt(imageSelectedFile);
-                        BufferedImage imageEncrypted;
-                        imageEncrypted = ImageIO.read(encryptedFile);
-                        ImageIcon imageLabel = new ImageIcon(imageEncrypted.getScaledInstance(labelOriginalImage.getWidth(), labelOriginalImage.getHeight(), Image.SCALE_DEFAULT));
-                        labelEncryptedImage.setIcon(imageLabel);
+                        String IV = textBoxIV.getText();
+                        imageEncryptedFile = getEncryptedImage(key, IV, imageSelectedFile);
+                        BufferedImage imageEncrypted = ImageIO.read(imageEncryptedFile);
+                        ImageIcon encryptedImageIcon = new ImageIcon(imageEncrypted.getScaledInstance(labelOriginalImage.getWidth(), labelOriginalImage.getHeight(), Image.SCALE_DEFAULT));
+                        labelEncryptedImage.setIcon(encryptedImageIcon);
+                        labelEncryptedImage2.setIcon(encryptedImageIcon);
                     }
                     catch(Exception ex)
                     {
@@ -288,52 +299,71 @@ public class HC128Application extends JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "El tamaï¿½o del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El tamaño del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "El tamaï¿½o de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El tamaño de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     public void decrypt(JLabel lbl_EncryptedImage, JLabel lbl_DecryptedImage) {
         if(textBoxKey.getText().length() == 16)
         {
             if(textBoxIV.getText().length() == 16)
             {
-                if (imageSelectedFile != null)
+                if (imageEncryptedFile != null)
                 {
                     try
                     {
                         String key = textBoxKey.getText();
-                        imageEncryptedFile = new File("Imagenes\\temp.bmp");
-                        CipherManager cm = new CipherManager();
-                        cm.initializeData(key, textBoxIV.getText());
-                        File encryptedFile = cm.encrypt(imageEncryptedFile);
-                        BufferedImage imageEncrypted;
-                        imageEncrypted = ImageIO.read(encryptedFile);
-                        ImageIcon imageLabel = new ImageIcon(imageEncrypted.getScaledInstance(lbl_EncryptedImage.getWidth(), lbl_EncryptedImage.getHeight(), Image.SCALE_DEFAULT));
+                        String IV = textBoxIV.getText();
+                        File decryptedFile = getDecryptedImage(key, IV, imageEncryptedFile);
+                        BufferedImage imageDecrypted = ImageIO.read(decryptedFile);
+                        ImageIcon imageLabel = new ImageIcon(imageDecrypted.getScaledInstance(lbl_EncryptedImage.getWidth(), lbl_EncryptedImage.getHeight(), Image.SCALE_DEFAULT));
                         lbl_DecryptedImage.setIcon(imageLabel);
                     }
                     catch(Exception ex)
                     {
-                        JOptionPane.showMessageDialog(null, "Error encriptando la imagen, por favor intentelo de nuevo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Error descenriptando la imagen, por favor intentelo de nuevo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null, "Por favor seleccione una imagen", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Por favor encripte una imagen primero", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "El tamaï¿½o del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El tamaño del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "El tamaï¿½o de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El tamaño de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public File getEncryptedImage(String key, String IV, File originalImage) {
+    	try { 
+			CipherManager cm = new CipherManager();
+			cm.initializeData(key, IV);
+			return cm.applyHC128(originalImage, "encrypted.bmp");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error encriptando la imagen, por favor intentelo de nuevo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+    }
+    
+    public File getDecryptedImage(String key, String IV, File encryptedImage) {
+    	try { 
+			CipherManager cm = new CipherManager();
+			cm.initializeData(key, IV);
+			return cm.applyHC128(encryptedImage, "decrypted.bmp");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error descenriptando la imagen, por favor intentelo de nuevo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
     }
 }

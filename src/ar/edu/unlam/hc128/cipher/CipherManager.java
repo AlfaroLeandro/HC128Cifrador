@@ -14,7 +14,7 @@ public class CipherManager {
         cipher.initialization();
     }
 
-    public File encrypt(File imageFile) throws IOException
+    public File applyHC128(File imageFile, String outputFileName) throws IOException
     {
         byte[] bytesArchivo = FileManager.fileToByte(imageFile);
         byte bytesHeader[] = new byte[FileManager.HEADER_SIZE];
@@ -32,7 +32,7 @@ public class CipherManager {
 
         byte[] encryptedBody = cipher.encryption(bytesBody);
 
-        File encryptedFile = new File("Imagenes\\temp.bmp");
+        File encryptedFile = new File(String.format("Imagenes\\%s", outputFileName));
         FileManager.byteToFile(bytesHeader, encryptedBody, encryptedFile);
         return encryptedFile;
     }
