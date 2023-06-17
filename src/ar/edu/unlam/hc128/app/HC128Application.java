@@ -344,26 +344,18 @@ public class HC128Application extends JFrame {
             JOptionPane.showMessageDialog(null, "El tamaño de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public File getEncryptedImage(String key, String IV, File originalImage) {
-    	try { 
-			CipherManager cm = new CipherManager();
-			cm.initializeData(key, IV);
-			return cm.applyHC128(originalImage, "encrypted.bmp");
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error encriptando la imagen, por favor intentelo de nuevo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			return null;
-		}
+
+    public File getEncryptedImage(String key, String IV, File originalImage) throws IOException {
+    	return applyHC128ToImage(key, IV, originalImage, "encrypted.bmp");
     }
     
-    public File getDecryptedImage(String key, String IV, File encryptedImage) {
-    	try { 
-			CipherManager cm = new CipherManager();
-			cm.initializeData(key, IV);
-			return cm.applyHC128(encryptedImage, "decrypted.bmp");
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error descenriptando la imagen, por favor intentelo de nuevo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			return null;
-		}
+    public File getDecryptedImage(String key, String IV, File encryptedImage) throws IOException {
+    	return applyHC128ToImage(key, IV, encryptedImage, "decrypted.bmp");
     }
+    
+    private File applyHC128ToImage(String key, String IV, File image, String outputImageName) throws IOException {
+		CipherManager cm = new CipherManager();
+		cm.initializeData(key, IV);
+		return cm.applyHC128(image, outputImageName);
+    }   
 }
