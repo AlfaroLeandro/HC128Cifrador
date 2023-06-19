@@ -15,37 +15,56 @@ public class HC128 {
     public void initialization(){
         int[] w = new int[1280];
 
-        byte firstByteKey = key[0];
+        /**
+         * Initialization Process Step 1
+         */
+        step1(w);
 
-        String[] s1 = String.format("%8s", Integer.toBinaryString(firstByteKey & 0xFF)).replace(' ', '0').split("");
+        /**
+         * Initialization Process Step 2
+         */
+        step2(w);
 
+        /**
+         * Initialization Process Step 3
+         */
+        step3(w);
+    }
+
+    public void step1(int[] w){
+        byte keyFirstByte = key[0];
+        byte IVfirstByte = iv[0];
+
+        String[] keyFirstByteString = String.format("%8s", Integer.toBinaryString(keyFirstByte & 0xFF)).replace(' ', '0').split("");
         for (int i = 0; i <= 7; i++) {
-            w[i] = Integer.parseInt(s1[i]);
+            w[i] = Integer.parseInt(keyFirstByteString[i]);
         }
 
-        byte primerByteIV = iv[0];
-        String[] s2 = String.format("%8s", Integer.toBinaryString(primerByteIV & 0xFF)).replace(' ', '0').split("");
-
+        String[] IVfirstByteString = String.format("%8s", Integer.toBinaryString(IVfirstByte & 0xFF)).replace(' ', '0').split("");
         for (int i = 8; i <= 15; i++) {
-            w[i] = Integer.parseInt(s2[i - 8]);
+            w[i] = Integer.parseInt(IVfirstByteString[i - 8]);
         }
 
         for (int i = 16; i <= 1279; i++) {
             w[i] = f2(w[i - 2]) + w[i - 7] + f1(w[i - 15]) + w[i - 16] + i;
         }
+    }
 
+    private void step2(int []w){
         for (int i = 0; i <= 511; i++) {
             p[i] = w[i + 256];
             q[i] = w[i + 768];
         }
+    }
 
+    private void step3(int []w){
         for (int i = 0; i <= 511; i++) {
             p[i] = (p[i] + g1(p[mod512(i - 3)], p[mod512(i - 511)], p[mod512(i - 511)]) ^ h1(p[mod512(i - 12)]));
             q[i] = (q[i] + g2(p[mod512(i - 3)], p[mod512(i - 511)], p[mod512(i - 511)]) ^ h2(p[mod512(i - 12)]));
         }
     }
 
-    public int f1(int x) {
+    private int f1(int x) {
         return Integer.rotateRight(x, 7) ^ Integer.rotateRight(x, 18) ^ (x >>> 3);
     }
 
@@ -88,7 +107,7 @@ public class HC128 {
                     p[j] = (p[j] + g1(p[mod512(j - 3)], p[mod512(j - 10)], p[mod512(j - 511)]));
                     newInteg = h1(p[mod512(j - 12)] ^ p[j]);
                 } else {
-                    q[j] = (q[j] + g1(q[mod512(j - 3)], q[mod512(j - 10)], q[mod512(j - 511)]));
+                    q[j] = (q[j] + g2(q[mod512(j - 3)], q[mod512(j - 10)], q[mod512(j - 511)]));
                     newInteg = h2(q[mod512(j - 12)] ^ q[j]);
                 }
                 buffer[3] = (byte) (newInteg & 0xFF);
