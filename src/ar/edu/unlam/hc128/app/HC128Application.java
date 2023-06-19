@@ -22,6 +22,7 @@ import javax.swing.*;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.HeadlessException;
 
 public class HC128Application extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -260,6 +261,55 @@ public class HC128Application extends JFrame {
         });
         buttonEncrypt.setBounds(469, 348, 180, 23);
         contentPane.add(buttonEncrypt);
+        
+        
+        JButton histogramaImagenOrigin = new JButton("Histograma Original");
+        histogramaImagenOrigin.setBackground(new Color(0, 128, 128));
+        histogramaImagenOrigin.setForeground(new Color(255, 255, 255));
+        histogramaImagenOrigin.setFont(new Font("Dialog", Font.BOLD, 12));
+        histogramaImagenOrigin.setUI(new StyledButtonUI());
+        histogramaImagenOrigin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                	if(imageSelectedFile != null) {
+                		new HistogramaFrame(imageSelectedFile, "Histograma Original");
+                	}
+                	else {
+                		JOptionPane.showMessageDialog(null, "Por favor seleccione una imagen", "Error", JOptionPane.ERROR_MESSAGE);
+                	}
+					
+				} catch (HeadlessException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+        });
+        histogramaImagenOrigin.setBounds(469, 300, 180, 23);
+        contentPane.add(histogramaImagenOrigin);
+        
+        
+        JButton histogramaImagenCifrada = new JButton("Histograma Cifrada");
+        histogramaImagenCifrada.setBackground(new Color(0, 128, 128));
+        histogramaImagenCifrada.setForeground(new Color(255, 255, 255));
+        histogramaImagenCifrada.setFont(new Font("Dialog", Font.BOLD, 12));
+        histogramaImagenCifrada.setUI(new StyledButtonUI());
+        histogramaImagenCifrada.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                	if(imageEncryptedFile != null) {
+                		new HistogramaFrame(imageEncryptedFile, "Histograma Cifrada");
+                	} else {
+                		JOptionPane.showMessageDialog(null, "Por favor primero cifre una imagen", "Error", JOptionPane.ERROR_MESSAGE);
+                	}
+                	
+				} catch (HeadlessException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+        });
+        histogramaImagenCifrada.setBounds(469, 539, 180, 23);
+        contentPane.add(histogramaImagenCifrada);
 
         
         try {
@@ -358,4 +408,9 @@ public class HC128Application extends JFrame {
 		cm.initializeData(key, IV);
 		return cm.applyHC128(image, outputImageName);
     }   
+
+    private void crearJPanelHistograma(File Image) throws IOException {
+    	System.out.println("ABRE NUEVA VENTANA");
+    }
+    	
 }
