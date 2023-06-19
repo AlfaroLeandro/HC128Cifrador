@@ -89,12 +89,13 @@ public class HC128 {
     }
 
     private static int mod512(int x) {
-        return x % 512;
+        return x & 0x1FF;
     }
 
     private int mod1024(int x) {
-        return x % 1024;
+        return x & 0x3FF;
     }
+
 
     public byte[] encryption(byte[] data) {
         int idx = 0;
