@@ -97,29 +97,29 @@ public class HC128 {
     }
 
     public byte[] encryption(byte[] data) {
-        int index = 0;
+        int idx = 0;
         byte[] dataEncrypted = new byte[data.length];
-        int newInteg;
+        int newInt;
         for (int i = 0; i < data.length; i++) {
-            if (index == 0) {
+            if (idx == 0) {
                 int j = mod512(i);
                 if (mod1024(i) < 512) {
                     p[j] = (p[j] + g1(p[mod512(j - 3)], p[mod512(j - 10)], p[mod512(j - 511)]));
-                    newInteg = h1(p[mod512(j - 12)] ^ p[j]);
+                    newInt = h1(p[mod512(j - 12)] ^ p[j]);
                 } else {
                     q[j] = (q[j] + g2(q[mod512(j - 3)], q[mod512(j - 10)], q[mod512(j - 511)]));
-                    newInteg = h2(q[mod512(j - 12)] ^ q[j]);
+                    newInt = h2(q[mod512(j - 12)] ^ q[j]);
                 }
-                buffer[3] = (byte) (newInteg & 0xFF);
-                newInteg >>= 8;
-                buffer[2] = (byte) (newInteg & 0xFF);
-                newInteg >>= 8;
-                buffer[1] = (byte) (newInteg & 0xFF);
-                newInteg >>= 8;
-                buffer[0] = (byte) (newInteg & 0xFF);
+                buffer[3] = (byte) (newInt & 0xFF);
+                newInt >>= 8;
+                buffer[2] = (byte) (newInt & 0xFF);
+                newInt >>= 8;
+                buffer[1] = (byte) (newInt & 0xFF);
+                newInt >>= 8;
+                buffer[0] = (byte) (newInt & 0xFF);
             }
-            byte feedback = buffer[index];
-            index = index + 1 & 0x3;
+            byte feedback = buffer[idx];
+            idx = idx + 1 & 0x3;
             dataEncrypted[i] = (byte) (data[i] ^ feedback);
         }
         return dataEncrypted;
