@@ -373,7 +373,6 @@ public class HC128Application extends JFrame {
     public boolean checkIntegrity(JLabel lbl_EncryptedImage, JLabel lbl_DecryptedImage){
         byte[] originalImageBytes = getImageBytes(lbl_EncryptedImage);
         byte[] decryptedImageBytes = getImageBytes(lbl_DecryptedImage);
-
         if (originalImageBytes.length != decryptedImageBytes.length)
             return false;
 
@@ -395,7 +394,7 @@ public class HC128Application extends JFrame {
             g.dispose();
 
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ImageIO.write(bi, "jpg", os);
+            ImageIO.write(bi, "bmp", os);
             InputStream fis = new ByteArrayInputStream(os.toByteArray());
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             byte[] buf = new byte[1024];
