@@ -1,7 +1,6 @@
 package ar.edu.unlam.hc128.app;
 
-import java.awt.EventQueue;
-import java.awt.Image;
+import java.awt.*;
 
 import javax.swing.border.EmptyBorder;
 
@@ -14,15 +13,9 @@ import javax.imageio.ImageIO;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
-
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.HeadlessException;
 
 public class HC128Application extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -51,7 +44,7 @@ public class HC128Application extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1200, 777);
         contentPane = new NuevoJPanel();
-    //    contentPane.setBackground(new Color(172, 251, 231)); 
+        //    contentPane.setBackground(new Color(172, 251, 231));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -127,10 +120,10 @@ public class HC128Application extends JFrame {
         } catch (IOException e1) {
             labelUnlamImage = new JLabel("");
         }
-		
+
         labelUnlamImage.setBounds(1120, 11, 43, 42);
         contentPane.add(labelUnlamImage);
-        
+
         JLabel labelOriginal = new JLabel("Imagen original");
         labelOriginal.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelOriginal.setBounds(217, 249, 112, 14);
@@ -198,43 +191,43 @@ public class HC128Application extends JFrame {
         lblAlgoritmoHc.setBounds(20, 29, 134, 14);
         lblAlgoritmoHc.setForeground(Color.WHITE);
         contentPane.add(lblAlgoritmoHc);
-        
+
         JLabel lblTitleFirstSection = new JLabel("Inicializaci\u00F3n");
         lblTitleFirstSection.setForeground(new Color(255, 255, 255));
         lblTitleFirstSection.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitleFirstSection.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblTitleFirstSection.setBounds(499, 23, 118, 20);
         contentPane.add(lblTitleFirstSection);
-        
+
         JLabel lblTitleSecondSection = new JLabel("Cifrado");
         lblTitleSecondSection.setForeground(new Color(255, 255, 255));
         lblTitleSecondSection.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitleSecondSection.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblTitleSecondSection.setBounds(499, 208, 118, 20);
         contentPane.add(lblTitleSecondSection);
-        
+
         JLabel lblImagenCifrada = new JLabel("Imagen cifrada");
         lblImagenCifrada.setForeground(Color.WHITE);
         lblImagenCifrada.setFont(new Font("Tahoma", Font.BOLD, 11));
         lblImagenCifrada.setBounds(217, 485, 112, 14);
         contentPane.add(lblImagenCifrada);
-        
+
         JLabel lblImagenDescifrada = new JLabel("Imagen descifrada");
         lblImagenDescifrada.setForeground(Color.WHITE);
         lblImagenDescifrada.setFont(new Font("Tahoma", Font.BOLD, 11));
         lblImagenDescifrada.setBounds(825, 491, 118, 14);
         contentPane.add(lblImagenDescifrada);
-        
+
         JLabel labelEncryptedImage2 = new JLabel("");
         labelEncryptedImage2.setForeground(Color.BLACK);
         labelEncryptedImage2.setBackground(Color.GRAY);
         labelEncryptedImage2.setBounds(175, 527, 174, 172);
-        contentPane.add(labelEncryptedImage2);   
-        
+        contentPane.add(labelEncryptedImage2);
+
         JLabel labelDecryptedImage = new JLabel("");
         labelDecryptedImage.setBounds(788, 533, 174, 172);
         contentPane.add(labelDecryptedImage);
-        
+
         JButton btnDecrypt = new JButton("Descifrar");
         btnDecrypt.setFont(new Font("Dialog", Font.BOLD, 12));
         btnDecrypt.setForeground(new Color(255, 255, 255));
@@ -247,7 +240,26 @@ public class HC128Application extends JFrame {
             }
         });
         contentPane.add(btnDecrypt);
-        
+
+        JButton btnIntegrity = new JButton("Comprobar integridad");
+        btnIntegrity.setFont(new Font("Dialog", Font.BOLD, 12));
+        btnIntegrity.setForeground(new Color(255, 255, 255));
+        btnIntegrity.setBackground(new Color(0, 128, 128));
+        btnIntegrity.setUI(new StyledButtonUI());
+        btnIntegrity.setBounds(469, 630, 180, 23);
+        btnIntegrity.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boolean sameImages = checkIntegrity(labelOriginalImage, labelDecryptedImage);
+                if (sameImages)
+                    JOptionPane.showMessageDialog(contentPane,
+                            "ImÃ¡genes iguales", "Chequeo de integridad", JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(contentPane,
+                            "ImÃ¡genes distintas", "Chequeo de integridad", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        contentPane.add(btnIntegrity);
+
 
         JButton buttonEncrypt = new JButton("Cifrar");
         buttonEncrypt.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -261,8 +273,8 @@ public class HC128Application extends JFrame {
         });
         buttonEncrypt.setBounds(469, 348, 180, 23);
         contentPane.add(buttonEncrypt);
-        
-        
+
+
         JButton histogramaImagenOrigin = new JButton("Histograma Original");
         histogramaImagenOrigin.setBackground(new Color(0, 128, 128));
         histogramaImagenOrigin.setForeground(new Color(255, 255, 255));
@@ -271,23 +283,23 @@ public class HC128Application extends JFrame {
         histogramaImagenOrigin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                	if(imageSelectedFile != null) {
-                		new HistogramaFrame(imageSelectedFile, "Histograma Original");
-                	}
-                	else {
-                		JOptionPane.showMessageDialog(null, "Por favor seleccione una imagen", "Error", JOptionPane.ERROR_MESSAGE);
-                	}
-					
-				} catch (HeadlessException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+                    if(imageSelectedFile != null) {
+                        new HistogramaFrame(imageSelectedFile, "Histograma Original");
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Por favor seleccione una imagen", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } catch (HeadlessException | IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
         histogramaImagenOrigin.setBounds(469, 300, 180, 23);
         contentPane.add(histogramaImagenOrigin);
-        
-        
+
+
         JButton histogramaImagenCifrada = new JButton("Histograma Cifrada");
         histogramaImagenCifrada.setBackground(new Color(0, 128, 128));
         histogramaImagenCifrada.setForeground(new Color(255, 255, 255));
@@ -296,28 +308,28 @@ public class HC128Application extends JFrame {
         histogramaImagenCifrada.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                	if(imageEncryptedFile != null) {
-                		new HistogramaFrame(imageEncryptedFile, "Histograma Cifrada");
-                	} else {
-                		JOptionPane.showMessageDialog(null, "Por favor primero cifre una imagen", "Error", JOptionPane.ERROR_MESSAGE);
-                	}
-                	
-				} catch (HeadlessException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+                    if(imageEncryptedFile != null) {
+                        new HistogramaFrame(imageEncryptedFile, "Histograma Cifrada");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Por favor primero cifre una imagen", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } catch (HeadlessException | IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
         histogramaImagenCifrada.setBounds(469, 539, 180, 23);
         contentPane.add(histogramaImagenCifrada);
 
-        
+
         try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e1) {
-			e1.printStackTrace();
-		}
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                 | UnsupportedLookAndFeelException e1) {
+            e1.printStackTrace();
+        }
     }
 
     public void encrypt(JLabel labelOriginalImage, JLabel labelEncryptedImage, JLabel labelEncryptedImage2) {
@@ -349,15 +361,52 @@ public class HC128Application extends JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "El tamaño del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El tamaï¿½o del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "El tamaño de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El tamaï¿½o de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
+    public boolean checkIntegrity(JLabel lbl_EncryptedImage, JLabel lbl_DecryptedImage){
+        byte[] originalImageBytes = getImageBytes(lbl_EncryptedImage);
+        byte[] decryptedImageBytes = getImageBytes(lbl_DecryptedImage);
+
+        if (originalImageBytes.length != decryptedImageBytes.length)
+            return false;
+
+        for (int i = 0; i < originalImageBytes.length; i++){
+            if (originalImageBytes[i] != decryptedImageBytes[i])
+                return false;
+        }
+        return true;
+    }
+
+    private byte[] getImageBytes(JLabel label){
+        try {
+            Icon icons = label.getIcon();
+            BufferedImage bi = new BufferedImage(icons.getIconWidth(), icons.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics g = bi.createGraphics();
+            icons.paintIcon(null, g, 0, 0);
+            g.setColor(Color.WHITE);
+            g.drawString(label.getText(), 10, 20);
+            g.dispose();
+
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(bi, "jpg", os);
+            InputStream fis = new ByteArrayInputStream(os.toByteArray());
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int readNum; (readNum = fis.read(buf)) != -1;)
+                bos.write(buf, 0, readNum);
+            return bos.toByteArray();
+        }
+        catch(IOException e){
+            return null;
+        }
+    }
     public void decrypt(JLabel lbl_EncryptedImage, JLabel lbl_DecryptedImage) {
         if(textBoxKey.getText().length() == 16)
         {
@@ -386,31 +435,26 @@ public class HC128Application extends JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "El tamaño del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El tamaï¿½o del iv debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "El tamaño de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El tamaï¿½o de la key debe ser de 16 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public File getEncryptedImage(String key, String IV, File originalImage) throws IOException {
-    	return applyHC128ToImage(key, IV, originalImage, "encrypted.bmp");
+        return applyHC128ToImage(key, IV, originalImage, "encrypted.bmp");
     }
-    
-    public File getDecryptedImage(String key, String IV, File encryptedImage) throws IOException {
-    	return applyHC128ToImage(key, IV, encryptedImage, "decrypted.bmp");
-    }
-    
-    private File applyHC128ToImage(String key, String IV, File image, String outputImageName) throws IOException {
-		CipherManager cm = new CipherManager();
-		cm.initializeData(key, IV);
-		return cm.applyHC128(image, outputImageName);
-    }   
 
-    private void crearJPanelHistograma(File Image) throws IOException {
-    	System.out.println("ABRE NUEVA VENTANA");
+    public File getDecryptedImage(String key, String IV, File encryptedImage) throws IOException {
+        return applyHC128ToImage(key, IV, encryptedImage, "decrypted.bmp");
     }
-    	
+
+    private File applyHC128ToImage(String key, String IV, File image, String outputImageName) throws IOException {
+        CipherManager cm = new CipherManager();
+        cm.initializeData(key, IV);
+        return cm.applyHC128(image, outputImageName);
+    }
 }
