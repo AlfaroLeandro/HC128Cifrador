@@ -34,7 +34,16 @@ public class HC128 {
     public void step1(int[] w){
         byte keyFirstByte = key[0];
         byte IVfirstByte = iv[0];
+        
+        for (int i = 0; i < 8; i++){
+            w[i] = ((0xFF & key[(i* 4 +0) % 16]) << 24) | ((0xFF & key[(i* 4 +1) % 16]) << 16) |((0xFF & key[(i* 4 +2) % 16]) << 8) | (0xFF & key[(i* 4 +3) % 16]);
+        }
 
+        for (int i = 8; i < 16; i++){
+            w[i] = ((0xFF & iv[(i* 4 +0) % 16]) << 24) | ((0xFF & iv[(i* 4 +1) % 16]) << 16) |((0xFF & iv[(i* 4 +2) % 16]) << 8) | (0xFF & iv[(i* 4 +3) % 16]);
+        }
+       
+/**
         String[] keyFirstByteString = String.format("%8s", Integer.toBinaryString(keyFirstByte & 0xFF)).replace(' ', '0').split("");
         for (int i = 0; i <= 7; i++) {
             w[i] = Integer.parseInt(keyFirstByteString[i]);
@@ -44,7 +53,7 @@ public class HC128 {
         for (int i = 8; i <= 15; i++) {
             w[i] = Integer.parseInt(IVfirstByteString[i - 8]);
         }
-
+**/
         for (int i = 16; i <= 1279; i++) {
             w[i] = f2(w[i - 2]) + w[i - 7] + f1(w[i - 15]) + w[i - 16] + i;
         }
