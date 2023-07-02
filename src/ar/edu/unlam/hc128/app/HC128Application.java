@@ -252,10 +252,10 @@ public class HC128Application extends JFrame {
                 boolean sameImages = checkIntegrity(labelOriginalImage, labelDecryptedImage);
                 if (sameImages)
                     JOptionPane.showMessageDialog(contentPane,
-                            "Im√°genes iguales", "Chequeo de integridad", JOptionPane.INFORMATION_MESSAGE);
+                            "Im·genes iguales", "Chequeo de integridad", JOptionPane.INFORMATION_MESSAGE);
                 else
                     JOptionPane.showMessageDialog(contentPane,
-                            "Im√°genes distintas", "Chequeo de integridad", JOptionPane.ERROR_MESSAGE);
+                            "Im·genes distintas", "Chequeo de integridad", JOptionPane.ERROR_MESSAGE);
             }
         });
         contentPane.add(btnIntegrity);
